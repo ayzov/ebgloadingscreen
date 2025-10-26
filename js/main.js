@@ -118,7 +118,7 @@ function loadAll() {
   }, 10000);
 }
 function loadBackground() {
-  // Если есть массив изображений, используем ротацию
+  // Если есть массив изображений, используем ротацию со случайным начальным изображением
   if (Config.backgroundImages && Config.backgroundImages.length > 0) {
     startBackgroundRotation();
   } 
@@ -131,11 +131,12 @@ function loadBackground() {
   }
 }
 
-// Новая функция для ротации фонов
+// Обновленная функция для ротации фонов со случайным начальным изображением
 function startBackgroundRotation() {
-  var currentBgIndex = 0;
+  // Генерируем случайный начальный индекс
+  var currentBgIndex = Math.floor(Math.random() * Config.backgroundImages.length);
   
-  // Сразу устанавливаем первый фон
+  // Сразу устанавливаем случайный фон
   changeBackground(Config.backgroundImages[currentBgIndex]);
   
   // Запускаем интервал для смены фонов
@@ -143,6 +144,8 @@ function startBackgroundRotation() {
     currentBgIndex = (currentBgIndex + 1) % Config.backgroundImages.length;
     changeBackground(Config.backgroundImages[currentBgIndex]);
   }, Config.backgroundChangeInterval);
+  
+  debug("Started background rotation with random initial image: " + Config.backgroundImages[currentBgIndex]);
 }
 
 // Функция смены фона с анимацией
